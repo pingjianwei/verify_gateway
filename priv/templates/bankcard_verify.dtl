@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+
+<head>
+</head>
+
+<body>
+    <form id="pay" action="{{ actionUrl }}" target="_blank" method="post">
+        商 户 号:<input type="text" name="merchId" value="{{ merchId }}"/><br>
+        交易日期:<input type="text" name="tranDate" value="{{ tranDate }}"/><br>
+        商户流水号:<input type="text" name="tranId" value="{{ tranId }}"/><br>
+        交易时间:<input type="text" name="tranTime" value="{{ tranTime }}"/><br>
+        银行卡号:<input type="text" name="acctNo" value="{{ acctNo }}"/><br>
+        姓    名:<input type="text" name="acctName" value="{{ acctName }}"/><br>
+        身份证号:<input type="text" name="certNo" value="{{ certNo }}"/><br>
+        手机号码:<input type="text" name="phone" value="{{ phone }}"/><br>
+        <input type="submit" value="提交请求">
+    </form>
+</body>
+
+</html>

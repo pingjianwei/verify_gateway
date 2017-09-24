@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+</head>
+
+<body>
+    <form id="pay" action="/pay" target="_blank" method="post">
+        交易金额:<input type="text" name="tranAmt" value="1"/><br>
+        订单描述:<input type="text" name="orderDesc" value="{pI=test,aI=03429500040006212,aN=上海聚孚金融信息服务有限公司,aB=农业银行上海张江集电港支行}"/><br>
+        订单号:<input type="text" name="orderId" value="148641458285747438"/><br>
+        商户号:<input type="text" name="merchId" value="000001"/><br>
+        商户流水号:<input type="text" name="tranId" value="20150318"/><br>产品代码:<input type="text" name="prodId" value="131026"/><br>
+        交易日期:<input type="text" name="tranDate" value="20160318"/><br>
+        交易时间:<input type="text" name="tranTime" value="152827"/><br>
+        打款账号:<input type="text" name="accountId" value="03429500040006212"/><br>
+        打款户名:<input type="text" name="accountName" value="上海聚孚金融信息服务有限公司"/><br>
+        打款银行:<input type="text" name="accountBank" value="农业银行上海张江集电港支行"/><br>
+        签名:<input type="text" name="signature" value="test"/><br>
+        网关类型:<input  type="text" name="gateWayId" value="1002"/><br>
+
+        支付成功前台跳转地址:<input type="text" name="trustFrontUrl" value="http://test.trust-one.com/payment_success/148641458285747438" /><br>
+        支付成功后台通知地址:<input type="text" name="trustBackUrl" value="http://test.trust-one.com/dapi/gateWay/pay/notice"/><br>
+
+        <input type="submit" value="提交支付">
+    </form>
+</body>
+
+</html>

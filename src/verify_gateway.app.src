@@ -1,0 +1,20 @@
+{application, verify_gateway,
+ [{description, "An OTP application"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, { verify_gateway_app, []}},
+  {applications,
+   [kernel,
+    stdlib,
+    mnesia,
+    lager,
+    cowboy
+%%    erldtl是个lib，不是app所以不能启动
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {maintainers, []},
+  {licenses, []},
+  {links, []}
+ ]}.
