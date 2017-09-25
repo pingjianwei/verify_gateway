@@ -65,27 +65,21 @@ save_upstream_req_model(ModelUpReqPay) when is_tuple(ModelUpReqPay) ->
   RepoUp = behaviour_protocol_model:save(protocol_ums_req_bankcard, ModelUpReqPay),
   ModelUpReqPay.
 send_verify_upstream_req(ModelUpReq) ->
-
- PropList = behaviour_protocol_model: model_2_out(protocol_ums_req_bankcard, ModelUpReq, proplist),
-  PostString = xfutils:post_vals_to_string(PropList),
-  ModelUpReqMap = maps:from_list(PropList),
-  UmsUrl="http://218.5.69.214:8088/easserver/gateway/1/realNameVerify/{030000563}",
-%%  UmsUrl="http://localhost:8888/pg/json",
-  lager:debug("ModelUpReqMap = ~p",[ModelUpReqMap]),
-  ModelPretty = model_helper:pretty_model([ModelUpReqMap]),
-  lager:debug("ModelPretty  = ~p", [ModelPretty]),
-  Body = jsx:encode(ModelPretty),
-  lager:debug("Body = ~ts", [Body]),
-  true = is_binary(Body),
+  PropList = behaviour_protocol_model:model_2_out(protocol_ums_req_bankcard, ModelUpReq, proplist),
+%%  ModelUpReqMap = maps:from_list(PropList),
+  UmsUrl = "http://218.5.69.214:8088/easserver/gateway/1/realNameVerify/030000563",
+  lager:debug("ModelUpReq PropList = ~p", [PropList]),
+%%  jsx:encode/1 to convert an erlang term into a utf8 binary containing a json string
+  Body = jsx:encode(PropList),
+  lager:debug("Up request Body = ~ts", [Body]),
 %%  Body1 = binary:replace(Body,[<<"[">>,<<"]">>],<<>>,[global]),
-  Body1 ="{\"acctName\":\"平建伟\",\"acctNo\":\"6222520623231350\",\"certNo\":\"410183198810141016\",\"certType\":\"01\",\"phone\":\"13721422283\",\"sign\":\"C+78JyLanu2bvVPcnY9QhbNqlm46Lez/pY4UEISkO7npA7dTgboNDHwYwhw412IkzhT0f+2KFpLVud/Zb+IJsDx6ZJ6o2HfpM8DM/IOOCtS8L1kH0eu6mlZYIRgvtmXx5sH0kpue33F2jZdzliSZMeD9Jp0yFasAJGnhnkblPrI=\",\"tranId\":\"20170924222850590579806\",\"tranTime\":\"20170924222850\",\"umsAcctType\":\"1\",\"verifyType\":\"0040\"}",
-
-  lager:debug("Body1 = ~ts", [Body1]),
-  {ok, {{_, RespCode, _}, _, Body2}} = httpc:request(post, {UmsUrl, [], "application/json;charset=UTF-8", Body1}, [], []),
-  Respnse = httpc:request(post, {UmsUrl, [], "application/json;charset=UTF-8", Body1}, [], []),
-  lager:debug("Respnse = ~ts",[Respnse]),
-  lager:debug("UpStreamResp = ~ts",[Body2]),
-  ok.
+%%  JsonBody = binary:part(Body, 1, byte_size(Body) - 2),
+%%  lager:debug("Body1 = ~ts", [JsonBody]),
+  {ok, {{_, RespCode, _}, _, Body2}} = httpc:request(post, {UmsUrl, [], "application/json;charset=UTF-8", Body}, [], []),
+%%  jsx:decode/1 to convert an erlang term into a utf8 binary containing a json string
+  UpRespBody = jsx:decode(list_to_binary(Body2)),
+  lager:debug("Up response body = ~p", [UpRespBody]),
+  UpRespBody.
 update_upstream_req_record(ModelUpReqPay) ->
   ok
 .
